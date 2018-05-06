@@ -174,6 +174,7 @@ def user_stats(df):
         print("\nCounts of each gender: ")
         print(df['Gender'].value_counts())
 
+    if 'Birth Year' in df.columns:
         # Display earliest, most recent, most common year of birth
         earliest_year = df['Birth Year'].min()
         print("\nEarliest year of birth: {}".format(earliest_year))
@@ -192,6 +193,17 @@ def user_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+def show_individual_stats(df):
+    """ Display individual stats from the dataset """
+    count = 0
+    while True:
+        trip_data = input("\nWould you like to view individual trip data? Type 'yes' or 'no': ")
+        if trip_data.lower() != "yes":
+            break
+        else:
+            print(df.iloc[10*count:10*(count+1)])
+            count += 1
+    return None
 
 def main():
 
@@ -205,14 +217,7 @@ def main():
         trip_stats(df)
         user_stats(df)
 
-        count = 0
-        while True:
-            trip_data = input("\nWould you like to view individual trip data? Type 'yes' or 'no': ")
-            if trip_data.lower() != "yes":
-                break
-            else:
-                print(df.iloc[10*count:10*(count+1)])
-                count += 1
+        show_individual_stats(df)
 
         restart = input("\nDo you want to start over? Enter 'yes' or 'no'\n")
         if restart.lower() != 'yes':
